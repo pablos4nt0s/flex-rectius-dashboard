@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				autoDrawBackground="false" addedEffect="Fade">
+	<fx:Script>
+		<![CDATA[
+			import com.rectius.examples.pod.events.PodWindowEvent;
+			
+			protected function clickHandler(event:MouseEvent):void
+			{
+				dispatchEvent(new PodWindowEvent(PodWindowEvent.RESTORE, data, true));
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata> 
+		[Event(name="restore", type="com.rectius.examples.pod.events.PodWindowEvent")] 
+	</fx:Metadata> 
+	
+		<s:Group width="170" height="20">
+			<s:Rect left="0" top="0" right="0" bottom="0">
+				<s:stroke>
+					<s:SolidColorStroke color="#e9e9e9" />
+				</s:stroke>
+				<s:fill>
+					<s:LinearGradient rotation="-90">
+						<s:GradientEntry color="#cccccc" ratio=".4" />
+						<s:GradientEntry color="#eeeeee" />
+					</s:LinearGradient>
+				</s:fill>
+			</s:Rect>
+			<s:Label left="5" right="5" top="2" bottom="2" 
+					 text="{data.title}" fontSize="10" 
+					 verticalAlign="middle" />
+			<s:Button width="10" height="10" right="8" top="3" 
+					  buttonMode="true" click="clickHandler(event)" 
+					  skinClass="com.rectius.examples.pod.assets.skins.PodListRestoreButtonSkin"/>
+		</s:Group>
+	
+</s:ItemRenderer>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:components="com.rectius.examples.pod.components.*"
+			   xmlns:view="com.rectius.examples.view.*"
+			   width="100%" height="100%"
+			   skinClass="com.rectius.examples.view.assets.CustomPodExampleSkin">
+
+	<s:controlBarContent>
+		<s:Label text="rDashboard" fontWeight="bold"/>
+	</s:controlBarContent>
+	
+	<s:Group left="0" right="0" top="0" height="30" clipAndEnableScrolling="true">
+		<s:Rect left="0" right="0" top="0" bottom="0">
+			<s:fill>
+				<s:LinearGradient rotation="90">
+					<s:GradientEntry color="#858585" ratio=".2" />
+					<s:GradientEntry color="#676767"  />
+				</s:LinearGradient>
+			</s:fill>
+		</s:Rect>
+		<s:List id="podMinimizedList" verticalCenter="0"
+				skinClass="com.rectius.examples.pod.assets.skins.PodListMinimizedSkin"
+				itemRenderer="com.rectius.examples.pod.assets.itemrenderer.PodListItemRenderer" 
+				dataProvider="{podManager.minimizedPods}">
+			<s:layout>
+				<s:HorizontalLayout 
+					paddingBottom="3" paddingLeft="2" 
+					paddingTop="3" paddingRight="2" />
+			</s:layout>
+		</s:List>
+	</s:Group>
+	
+	<components:PodManager id="podManager"
+		skinClass="com.rectius.examples.pod.assets.skins.PodManagerVerticalSkin"   
+		left="10" right="10" top="40" bottom="15">
+		
+		<components:firstElements>
+			<view:ChartExpenses width="100%" height="100%" title="Expenses" />
+			<view:ChartProfit width="100%" height="100%" title="Profit"/>
+		</components:firstElements>
+		
+		<components:secondElements>
+			<view:ChartWidget width="100%" height="100%" title="Widget"/>
+		</components:secondElements>
+		
+	</components:PodManager>
+	
+</s:Application>

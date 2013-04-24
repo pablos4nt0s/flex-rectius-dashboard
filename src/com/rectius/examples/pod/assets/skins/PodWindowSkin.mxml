@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("com.rectius.examples.pod.components.PodWindow")]
+	</fx:Metadata>
+
+	<!-- states -->
+	<s:states>
+		<s:State name="maximized" />
+		<s:State name="minimized" />
+		<s:State name="default" />
+		<s:State name="inactiveWithControlBar" stateGroups="inactiveGroup" />
+		<s:State name="inactive" stateGroups="inactiveGroup" />
+		<s:State name="disabled" />
+		<s:State name="normal" />
+	</s:states>
+	
+	<!--- drop shadow can't be hittable so it stays sibling of other graphics @private-->
+	<s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.32" 
+							 alpha.inactiveGroup="0.22" distance="11"  distance.inactiveGroup="7"
+							 angle="90" color="0x000000" left="0" top="0" right="0" bottom="0"/>
+	
+	<!--- drop shadow can't be hittable so all other graphics go in this group -->
+	<s:Group left="0" right="0" top="0" bottom="0">
+		
+		<!--- top group mask @private-->
+		<s:Group left="1" top="1" right="1" bottom="1" id="topGroupMask">
+			<!--- @private-->
+			<s:Rect id="topMaskRect" left="0" top="0" right="0" bottom="0">
+				<s:fill>
+					<s:SolidColor alpha="0"/>
+				</s:fill>
+			</s:Rect>
+		</s:Group>
+		
+		<!--- layer 1: border @private -->
+		<s:Rect id="border" left="0" right="0" top="0" bottom="0" >
+			<s:stroke>
+				<!--- Defines the border stroke. The default value is 1. -->
+				<s:SolidColorStroke id="borderStroke" weight="1" />
+			</s:stroke>
+		</s:Rect>
+		
+		<!-- layer 2: background fill -->
+		<!--- Defines the background. -->
+		<s:Rect id="background" left="1" top="1" right="1" bottom="1">
+			<s:fill>
+				<!--- Defines the background fill. The default color is 0xFFFFFF. -->
+				<s:SolidColor id="backgroundFill" color="#FFFFFF"/>
+			</s:fill>
+		</s:Rect>
+		
+		<!-- layer 3: contents -->
+		<!--- Contains the vertical stack of title bar content and control bar. -->
+		<s:Group left="1" right="1" top="1" bottom="1" id="contents">
+			<s:layout>
+				<s:VerticalLayout gap="0" horizontalAlign="justify" />
+			</s:layout>
+			<!--- @private -->
+			<s:Group id="topGroup" mask="{topGroupMask}">
+				<!--- layer 0: title bar fill @private -->
+				<s:Rect id="tbFill" left="0" right="0" top="0" bottom="1">
+					<s:fill>
+						<s:LinearGradient rotation="90">
+							<s:GradientEntry color="0xD2D2D2"
+											 color.inactiveGroup="0xEAEAEA"/>
+							<s:GradientEntry color="0x9A9A9A"
+											 color.inactiveGroup="0xCECECE"/>
+						</s:LinearGradient>
+					</s:fill>
+				</s:Rect>
+				
+				<!--- layer 1: title bar highlight @private -->
+				<s:Rect id="tbHilite" left="0" right="0" top="0" bottom="0">
+					<s:stroke>
+						<s:LinearGradientStroke rotation="90" weight="1">
+							<s:GradientEntry color="0xE6E6E6" />
+							<s:GradientEntry color="0xFFFFFF" alpha="0.22"/>
+						</s:LinearGradientStroke>
+					</s:stroke>
+					<s:fill>
+						<s:LinearGradient rotation="90">
+							<s:GradientEntry color="0xFFFFFF" alpha="0.15" />
+							<s:GradientEntry color="0xFFFFFF" alpha="0.15" ratio="0.44"/>
+							<s:GradientEntry color="0xFFFFFF" alpha="0" ratio="0.4401"/>
+						</s:LinearGradient>
+					</s:fill>
+				</s:Rect>
+				
+				<!--- layer 2: title bar divider @private -->
+				<s:Rect id="tbDiv" left="0" right="0" height="1" bottom="0">
+					<s:fill>
+				
+						<s:SolidColor color="0x000000" alpha="0.75" />
+					</s:fill>
+				</s:Rect>
+				
+				<!--- layer 3: text -->
+				<!--- @copy spark.components.Panel#titleDisplay -->
+				<s:Label id="titleDisplay" maxDisplayedLines="1"
+						 left="9" right="36" top="1" bottom="0" minHeight="30"
+						 verticalAlign="middle" fontWeight="bold" />
+				
+				<!--- layer 4: moveArea -->
+				<!--- @copy spark.components.TitleWindow#moveArea -->
+				<s:Group id="moveArea" left="0" right="0" top="0" bottom="0" buttonMode="true" />
+				
+				<s:Button id="minimizeButton" buttonMode="true" 
+						  skinClass="com.rectius.examples.pod.assets.skins.PodWindowMinimizeButtonSkin"
+						  width="15" height="15" right="25" top="7" />
+				
+				<s:Button id="maximizeButton" buttonMode="true"
+						  skinClass="com.rectius.examples.pod.assets.skins.PodWindowMaximizeButtonSkin"
+						  skinClass.maximized="com.rectius.examples.pod.assets.skins.PodWindowRestoreButtonSkin"
+						  width="15" height="15" right="7" top="7" />
+				
+			</s:Group>
+			
+			<!--- @copy spark.components.SkinnableContainer#contentGroup -->
+			<s:Group id="contentGroup" width="100%" height="100%" minWidth="0" minHeight="0" clipAndEnableScrolling="true">
+			</s:Group>
+			
+		</s:Group>
+		
+	</s:Group>
+	
+</s:Skin>
